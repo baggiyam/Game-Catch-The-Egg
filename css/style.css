@@ -91,16 +91,3 @@ button:hover {
     height: 90vh;
     position:relative;
 }
-.image{
-    background-image: url("Images/Nest.jpeg");
-    background-size: contain;
-    position: absolute;
-    display: block;
-    
-  
-    margin: 0;
-    overflow: hidden;
-    bottom:0;
-    left:0;
-
-}
