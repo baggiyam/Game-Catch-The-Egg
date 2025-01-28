@@ -1,0 +1,106 @@
+h1 {
+    font-family: "Times New Roman";
+    text-align: center;
+}
+
+.Banner {
+    background-image: url('../Images/Homescreen.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    min-height: 100vh;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Banner2 {
+    background-image: url('Images/Background-2.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    min-height: 100vh;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Banner3 {
+    background-image: url('Images/Background1.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    min-height: 100vh;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Banner4 {
+    background-image: url('Images/Background3.jpeg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    min-height: 100vh;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Align {
+    font-family: "Times New Roman";
+    text-align: center;
+    display: flexbox;
+    flex-direction: row;
+    -ms-flex-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    
+   
+
+}
+
+
+ul {
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0; 
+}
+li {
+    list-style-type: none; 
+}
+
+button {
+    text-align: center;
+    align-items: center;
+    display: flexbox;
+    flex-direction: row;
+    -ms-flex-align: center;
+}
+button:hover {
+    background-color: gold;
+
+}
+#border{
+    width: 90vw;
+    height: 90vh;
+    position:relative;
+}
+.image{
+    background-image: url("Images/Nest.jpeg");
+    background-size: contain;
+    position: absolute;
+    display: block;
+    height: 20vh;
+    width: 20vw;
+    margin: 0;
+    overflow: hidden;
+    bottom:0;
+    left:0;
+
+}
