@@ -34,11 +34,18 @@ window.onload = applyBannerClass();
 class Basket{
     constructor(){
         
-        this.width = 50;
-        this.height = 50; 
+        this.width=20;
+        this.height=20;
         this.positionX =20;
         this.positionY =20;
-        this.playerElm = document.getElementById('player'); 
+        const playerElm=document.getElementsByClassName('image'); 
+        playerElm.style.backgroundImage= url("Images/Nest.jpeg");
+        playerElm.style.width=this.width +"vw";
+        playerElm.style.height=this.height+"vh";
+playerElm.style.left= this.positionX +"vw";
+playerElm.style.bottom=this.positionY+"vh";
+
+        
         this.updateUI();
     }
     
