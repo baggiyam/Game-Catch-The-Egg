@@ -88,7 +88,7 @@ class Egg {
     constructor() {
         this.height = 100;
         this.width = 100;
-        this.positionX = 20; 
+        this.positionX = Math.floor(Math.random() * 80);
         this.positionY = 20; 
         this.createDomElement(); 
         this.fall(); 
@@ -132,7 +132,7 @@ class RedEgg{
     constructor(){
         this.height = 100;
         this.width = 100;
-        this.positionX = 30; 
+        this.positionX = Math.floor(Math.random() * 80);
         this.positionY = 30; 
         this.createDomElement(); 
         this.fall(); 
@@ -175,7 +175,7 @@ class Candies{
     constructor(){
         this.height = 100;
         this.width = 100;
-        this.positionX = 40; 
+        this.positionX = Math.floor(Math.random() * 80);; 
         this.positionY = 40; 
         this.createDomElement(); 
         this.fall(); 
