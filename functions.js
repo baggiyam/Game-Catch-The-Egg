@@ -64,6 +64,7 @@ class Basket {
     Basketmovement() {
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
+                
                 case "ArrowRight":
                     this.positionX++;
                     break;
@@ -85,10 +86,10 @@ class Basket {
 // Egg class for falling egg behavior
 class Egg {
     constructor() {
-        this.height = 40;
-        this.width = 40;
-        this.positionX = 50; 
-        this.positionY = 40; 
+        this.height = 100;
+        this.width = 100;
+        this.positionX = 20; 
+        this.positionY = 20; 
         this.createDomElement(); 
         this.fall(); 
     }
@@ -129,18 +130,92 @@ class Egg {
 
 class RedEgg{
     constructor(){
-     this.height = 40;
-     this.width = 40;
-     this.positionX = 50; 
-     this.positionY = 40; 
-     this.createDomElement(); 
-     this.fall(); 
- }
+        this.height = 100;
+        this.width = 100;
+        this.positionX = 30; 
+        this.positionY = 30; 
+        this.createDomElement(); 
+        this.fall(); 
+        this.updateUI();
 
+    }
+    createDomElement(){
+        this.redeggElm=document.createElement("div");
+        this.redeggElm.className="RedEgg";
+        this.redeggElm.style.backgroundImage = "url('Images/Redegg.jpeg')";
+        this.redeggElm.style.width = this.width + "px";
+        this.redeggElm.style.height = this.height + "px";
+        this.redeggElm.style.backgroundSize = "contain";
+        this.redeggElm.style.backgroundRepeat = "no-repeat";
+        this.redeggElm.style.position = "absolute"; 
+        this.redeggElm.style.overflow = "hidden"; 
+        const parentElm = document.getElementById('image');
+        parentElm.appendChild(this.redeggElm);
+        this.updateUI();
 
+    }
+    updateUI() {
+        // Update the egg's position based on positionX and positionY
+        this.redeggElm.style.left = this.positionX + "vw";
+        this.redeggElm.style.bottom = this.positionY + "vh";
+    }
+
+    fall(){
+        setInterval(() => {
+            if (this.positionY > 0) {
+                this.positionY--; 
+                this.updateUI(); 
+            }
+        }, 200); 
     }
 
 }
+
+class Candies{
+    constructor(){
+        this.height = 100;
+        this.width = 100;
+        this.positionX = 40; 
+        this.positionY = 40; 
+        this.createDomElement(); 
+        this.fall(); 
+        this.updateUI();
+
+    }
+    createDomElement(){
+        this.CandiesElm=document.createElement("div");
+        this.CandiesElm.className="candies";
+        this.CandiesElm.style.backgroundImage = "url('Images/Candies.jpeg')";
+        this.CandiesElm.style.width = this.width + "px";
+        this.CandiesElm.style.height = this.height + "px";
+        this.CandiesElm.style.backgroundSize = "contain";
+        this.CandiesElm.style.backgroundRepeat = "no-repeat";
+        this.CandiesElm.style.position = "absolute"; 
+        this.CandiesElm.style.overflow = "hidden"; 
+        const parentElm = document.getElementById('image');
+        parentElm.appendChild(this.CandiesElm);
+        this.updateUI();
+
+    }
+    updateUI() {
+        // Update the egg's position based on positionX and positionY
+        this.CandiesElm.style.left = this.positionX + "vw";
+        this.CandiesElm.style.bottom = this.positionY + "vh";
+    }
+
+    fall(){
+        setInterval(() => {
+            if (this.positionY > 0) {
+                this.positionY--; 
+                this.updateUI(); 
+            }
+        }, 200); 
+    }
+}
+
 // Initialize basket and egg objects
 const basket = new Basket();
 const eggfall = new Egg(); 
+const redegg=new RedEgg();
+const candies=new Candies();
+ 
