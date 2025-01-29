@@ -53,6 +53,7 @@ class Basket {
 
 
     }
+
     updateUI() {
         this.basketElm.style.left = this.positionX + "vw";
         this.basketElm.style.bottom = this.positionY + "vh";
@@ -77,7 +78,80 @@ class Basket {
             this.updateUI();
         });
 
-}
 
     }
-    const basket = new Basket();
+}
+
+
+class Egg {
+    constructor() {
+        this.height = 5;
+        this.width = 5;
+        this.positionX = Math.floor(Math.random() * (100 - this.width + 1)); 
+        this.createDomElement();
+    }
+    createDomElement(){
+        this.eggElm = document.createElemnt('div');
+        this.eggElm.className="egg";
+        this.eggElm.style.backgroundImage = "url('Images/egg.jpeg')";
+        this.eggElm.style.width = this.width + "vw";
+        this.eggElm.style.height = this.height + "vh";
+        this.eggElm.style.left = this.positionX + "vw";
+        this.eggElm.style.bottom = this.positionY + "vh";
+        this.eggElm.style.backgroundSize = "cover";
+        this.eggElm.style.backgroundRepeat = "no-repeat";
+        this.eggElm.style.position = "absolute";
+        const parentElm =document.getElementById("image");
+        parentElm.appendChild(this.eggElm);
+
+
+    
+}
+moveDown() {
+    this.positionY--;
+    this.eggElm.style.bottom = this.positionY + "vh";
+}
+}
+
+
+const basket = new Basket();
+
+const eggArr = []; 
+
+
+// create obstacles
+setInterval(() => {
+    const newObstacle = new Obstacle();
+    obstaclesArr.push(newObstacle);
+}, 3000);
+
+// update obstacles
+setInterval(() => {
+    obstaclesArr.forEach((obstacleInstance, i, arr) => {
+
+        // move
+        obstacleInstance.moveDown();
+
+        // detect collision
+        if (
+            Basket.positionX < obstacleInstance.positionX + obstacleInstance.width &&
+            Basket.positionX + player.width > obstacleInstance.positionX &&
+            Basket.positionY < obstacleInstance.positionY + obstacleInstance.height &&
+            Basket.positionY + player.height > obstacleInstance.positionY
+        ) {
+            // Collision detected!
+            console.log("game over...");
+            location.href = "gameover.html";
+        }
+    });
+}, 30);
+
+
+
+document.addEventListener("keydown", (event) => {
+    if (event.code === 'ArrowLeft') {
+        player.moveLeft();
+    } else if (event.code === 'ArrowRight') {
+        player.moveRight();
+    }
+});
