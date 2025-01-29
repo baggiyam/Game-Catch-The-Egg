@@ -9,17 +9,20 @@ function applyBannerClass() {
 
         if (counter > 0 && counter < 15) {
             bodyElement.classList.add('Banner2');
+            bodyElement.classList.remove('Banner3', 'Banner4');
         }
-        if (counter > 15 && counter < 30) {
+        else if (counter > 15 && counter < 30) {
             bodyElement.classList.add('Banner3');
+            bodyElement.classList.remove('Banner2', 'Banner4');
         }
-        if (counter > 30 && counter < 45) {
+        else if (counter > 30 && counter < 45) {
             bodyElement.classList.add('Banner4');
+            bodyElement.classList.remove('Banner2', 'Banner3');
         }
-        if (counter > 45 && counter < 50) {
+        else if (counter >= 45 && counter < 50) {
             bodyElement.classList.add('Banner2');
+            bodyElement.classList.remove('Banner3', 'Banner4');
             counter = 1;
-            bodyElement.classList.remove('Banner2', 'Banner3', 'Banner4');
         }
     }, 1000);
 }
@@ -34,9 +37,9 @@ class Basket {
         this.positionX = 0;
         this.positionY = 0;
 
-        this.createDomElement(); 
+        this.createDomElement();
         this.updateUI();
-        this.Basketmovement(); 
+        this.Basketmovement();
     }
 
     createDomElement() {
@@ -64,18 +67,18 @@ class Basket {
     Basketmovement() {
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
-                
+
                 case "ArrowRight":
-                    this.positionX++;
+                    if (this.positionX < 80) this.positionX++; // Add boundary for right movement
                     break;
                 case "ArrowLeft":
-                    this.positionX--;
+                    if (this.positionX > 0) this.positionX--; // Add boundary for left movement
                     break;
                 case "ArrowUp":
-                    this.positionY++;
+                    if (this.positionY < 80) this.positionY++; // Add boundary for up movement
                     break;
                 case "ArrowDown":
-                    this.positionY--;
+                    if (this.positionY > 0) this.positionY--; // Add boundary for down movement
                     break;
             }
             this.updateUI(); // Update basket position after key press
@@ -89,21 +92,21 @@ class Egg {
         this.height = 100;
         this.width = 100;
         this.positionX = Math.floor(Math.random() * 80);
-        this.positionY = 20; 
-        this.createDomElement(); 
-        this.fall(); 
+        this.positionY = 80;
+        this.createDomElement();
+        this.fall();
     }
 
     createDomElement() {
         this.eggElm = document.createElement('div');
-        this.eggElm.className = "eggclass"; 
+        this.eggElm.className = "eggclass";
         this.eggElm.style.backgroundImage = "url('Images/egg.jpeg')";
         this.eggElm.style.width = this.width + "px";
         this.eggElm.style.height = this.height + "px";
         this.eggElm.style.backgroundSize = "contain";
         this.eggElm.style.backgroundRepeat = "no-repeat";
-        this.eggElm.style.position = "absolute"; 
-        this.eggElm.style.overflow = "hidden"; 
+        this.eggElm.style.position = "absolute";
+        this.eggElm.style.overflow = "hidden";
 
         // Append the egg element to the 'image' div
         const parentElm = document.getElementById('image');
@@ -112,110 +115,144 @@ class Egg {
     }
 
     updateUI() {
-        // Update the egg's position based on positionX and positionY
         this.eggElm.style.left = this.positionX + "vw";
         this.eggElm.style.bottom = this.positionY + "vh";
     }
 
     fall() {
-        // Make the egg fall down every 100ms
         setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY--; 
-                this.updateUI(); 
+                this.positionY--;
+                this.updateUI();
             }
-        }, 100); 
+        }, 100);
     }
 }
 
-class RedEgg{
-    constructor(){
+class RedEgg {
+    constructor() {
         this.height = 100;
         this.width = 100;
         this.positionX = Math.floor(Math.random() * 80);
-        this.positionY = 30; 
-        this.createDomElement(); 
-        this.fall(); 
+        this.positionY = 80;
+        this.createDomElement();
+        this.fall();
         this.updateUI();
-
     }
-    createDomElement(){
-        this.redeggElm=document.createElement("div");
-        this.redeggElm.className="RedEgg";
+
+    createDomElement() {
+        this.redeggElm = document.createElement("div");
+        this.redeggElm.className = "RedEgg";
         this.redeggElm.style.backgroundImage = "url('Images/Redegg.jpeg')";
         this.redeggElm.style.width = this.width + "px";
         this.redeggElm.style.height = this.height + "px";
         this.redeggElm.style.backgroundSize = "contain";
         this.redeggElm.style.backgroundRepeat = "no-repeat";
-        this.redeggElm.style.position = "absolute"; 
-        this.redeggElm.style.overflow = "hidden"; 
+        this.redeggElm.style.position = "absolute";
+        this.redeggElm.style.overflow = "hidden";
         const parentElm = document.getElementById('image');
         parentElm.appendChild(this.redeggElm);
         this.updateUI();
-
     }
+
     updateUI() {
-        // Update the egg's position based on positionX and positionY
         this.redeggElm.style.left = this.positionX + "vw";
         this.redeggElm.style.bottom = this.positionY + "vh";
     }
 
-    fall(){
+    fall() {
         setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY--; 
-                this.updateUI(); 
+                this.positionY--;
+                this.updateUI();
             }
-        }, 200); 
+        }, 300);
     }
-
 }
 
-class Candies{
-    constructor(){
+class Candies {
+    constructor() {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 80);; 
-        this.positionY = 40; 
-        this.createDomElement(); 
-        this.fall(); 
+        this.positionX = Math.floor(Math.random() * 80);
+        this.positionY = 80;
+        this.createDomElement();
+        this.fall();
         this.updateUI();
-
     }
-    createDomElement(){
-        this.CandiesElm=document.createElement("div");
-        this.CandiesElm.className="candies";
+
+    createDomElement() {
+        this.CandiesElm = document.createElement("div");
+        this.CandiesElm.className = "candies";
         this.CandiesElm.style.backgroundImage = "url('Images/Candies.jpeg')";
         this.CandiesElm.style.width = this.width + "px";
         this.CandiesElm.style.height = this.height + "px";
         this.CandiesElm.style.backgroundSize = "contain";
         this.CandiesElm.style.backgroundRepeat = "no-repeat";
-        this.CandiesElm.style.position = "absolute"; 
-        this.CandiesElm.style.overflow = "hidden"; 
+        this.CandiesElm.style.position = "absolute";
+        this.CandiesElm.style.overflow = "hidden";
         const parentElm = document.getElementById('image');
         parentElm.appendChild(this.CandiesElm);
         this.updateUI();
-
     }
+
     updateUI() {
-        // Update the egg's position based on positionX and positionY
         this.CandiesElm.style.left = this.positionX + "vw";
         this.CandiesElm.style.bottom = this.positionY + "vh";
     }
 
-    fall(){
+    fall() {
         setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY--; 
-                this.updateUI(); 
+                this.positionY--;
+                this.updateUI();
             }
-        }, 200); 
+            if (this.positionX === 0) {
+                
+            }
+
+        }, 150);
+    }
+}
+const egg=new Egg();
+const Red=new RedEgg();
+const candie=new Candies();
+
+const eggsArr = [];  
+const redEggsArr = [];  
+const candiesArr = [];
+
+class createmultiple {
+    constructor() {
+        this.create(); 
+    }
+
+    create() {
+        const creationInterval = setInterval(() => {
+            
+            let eggCount = Math.floor(Math.random() * 5) + 1;  
+            let redEggCount = Math.floor(Math.random()) + 1;  
+            let candiesCount = Math.floor(Math.random() * 3) + 1;  
+
+            for (let i = 0; i < eggCount; i++) {
+                const eggfall = new Egg();
+                eggsArr.push(eggfall);  
+            }
+
+            for (let i = 0; i < redEggCount; i++) {
+                const redegg = new RedEgg();
+                redEggsArr.push(redegg);  
+            }
+            for (let i = 0; i < candiesCount; i++) {
+                const candy = new Candies();
+                candiesArr.push(candy);  
+            }
+
+        }, 6000);  
+        
     }
 }
 
 // Initialize basket and egg objects
 const basket = new Basket();
-const eggfall = new Egg(); 
-const redegg=new RedEgg();
-const candies=new Candies();
- 
+const create = new createmultiple(); 
