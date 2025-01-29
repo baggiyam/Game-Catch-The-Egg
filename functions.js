@@ -1,8 +1,6 @@
-//Creating the CHANGABLE BACKGROUND
-
+// Creating the CHANGABLE BACKGROUND
 function applyBannerClass() {
     const bodyElement = document.body;
-
     let counter = 1;
 
     const id = setInterval(function () {
@@ -22,24 +20,28 @@ function applyBannerClass() {
             bodyElement.classList.add('Banner2');
             counter = 1;
             bodyElement.classList.remove('Banner2', 'Banner3', 'Banner4');
-
         }
     }, 1000);
 }
 
-window.onload = applyBannerClass();
+window.onload = applyBannerClass;
 
-//INSERTING THE BASKET
-
+// INSERTING THE BASKET
 class Basket {
     constructor() {
-
         this.width = 20;
         this.height = 20;
         this.positionX = 0;
         this.positionY = 0;
 
-        this.basketElm = document.getElementById('image');
+        this.createDomElement(); 
+        this.updateUI();
+        this.Basketmovement(); 
+    }
+
+    createDomElement() {
+        this.basketElm = document.createElement('div');
+        this.basketElm.className = "Basket";
         this.basketElm.style.backgroundImage = "url('Images/Nest.jpeg')";
         this.basketElm.style.width = this.width + "vw";
         this.basketElm.style.height = this.height + "vh";
@@ -47,17 +49,18 @@ class Basket {
         this.basketElm.style.bottom = this.positionY + "vh";
         this.basketElm.style.backgroundSize = "cover";
         this.basketElm.style.backgroundRepeat = "no-repeat";
-        this.basketElm.style.position = "absolute";
-        this.updateUI();
-        this.Basketmovement();
+        this.basketElm.style.position = "absolute"; // Set position to absolute
 
-
+        // Append the basket to the 'image' container
+        const parentElm = document.getElementById('image');
+        parentElm.appendChild(this.basketElm);
     }
 
     updateUI() {
         this.basketElm.style.left = this.positionX + "vw";
         this.basketElm.style.bottom = this.positionY + "vh";
     }
+
     Basketmovement() {
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
@@ -73,85 +76,71 @@ class Basket {
                 case "ArrowDown":
                     this.positionY--;
                     break;
-
             }
-            this.updateUI();
+            this.updateUI(); // Update basket position after key press
         });
-
-
     }
 }
 
-
+// Egg class for falling egg behavior
 class Egg {
     constructor() {
-        this.height = 5;
-        this.width = 5;
-        this.positionX = Math.floor(Math.random() * (100 - this.width + 1)); 
-        this.createDomElement();
+        this.height = 40;
+        this.width = 40;
+        this.positionX = 50; 
+        this.positionY = 40; 
+        this.createDomElement(); 
+        this.fall(); 
     }
-    createDomElement(){
-        this.eggElm = document.createElemnt('div');
-        this.eggElm.className="egg";
+
+    createDomElement() {
+        this.eggElm = document.createElement('div');
+        this.eggElm.className = "eggclass"; 
         this.eggElm.style.backgroundImage = "url('Images/egg.jpeg')";
-        this.eggElm.style.width = this.width + "vw";
-        this.eggElm.style.height = this.height + "vh";
+        this.eggElm.style.width = this.width + "px";
+        this.eggElm.style.height = this.height + "px";
+        this.eggElm.style.backgroundSize = "contain";
+        this.eggElm.style.backgroundRepeat = "no-repeat";
+        this.eggElm.style.position = "absolute"; 
+        this.eggElm.style.overflow = "hidden"; 
+
+        // Append the egg element to the 'image' div
+        const parentElm = document.getElementById('image');
+        parentElm.appendChild(this.eggElm);
+        this.updateUI(); // Update the egg position
+    }
+
+    updateUI() {
+        // Update the egg's position based on positionX and positionY
         this.eggElm.style.left = this.positionX + "vw";
         this.eggElm.style.bottom = this.positionY + "vh";
-        this.eggElm.style.backgroundSize = "cover";
-        this.eggElm.style.backgroundRepeat = "no-repeat";
-        this.eggElm.style.position = "absolute";
-        const parentElm =document.getElementById("image");
-        parentElm.appendChild(this.eggElm);
-
-
-    
-}
-moveDown() {
-    this.positionY--;
-    this.eggElm.style.bottom = this.positionY + "vh";
-}
-}
-
-
-const basket = new Basket();
-
-const eggArr = []; 
-
-
-// create obstacles
-setInterval(() => {
-    const newObstacle = new Obstacle();
-    obstaclesArr.push(newObstacle);
-}, 3000);
-
-// update obstacles
-setInterval(() => {
-    obstaclesArr.forEach((obstacleInstance, i, arr) => {
-
-        // move
-        obstacleInstance.moveDown();
-
-        // detect collision
-        if (
-            Basket.positionX < obstacleInstance.positionX + obstacleInstance.width &&
-            Basket.positionX + player.width > obstacleInstance.positionX &&
-            Basket.positionY < obstacleInstance.positionY + obstacleInstance.height &&
-            Basket.positionY + player.height > obstacleInstance.positionY
-        ) {
-            // Collision detected!
-            console.log("game over...");
-            location.href = "gameover.html";
-        }
-    });
-}, 30);
-
-
-
-document.addEventListener("keydown", (event) => {
-    if (event.code === 'ArrowLeft') {
-        player.moveLeft();
-    } else if (event.code === 'ArrowRight') {
-        player.moveRight();
     }
-});
+
+    fall() {
+        // Make the egg fall down every 100ms
+        setInterval(() => {
+            if (this.positionY > 0) {
+                this.positionY--; 
+                this.updateUI(); 
+            }
+        }, 100); 
+    }
+}
+
+class RedEgg{
+    constructor(){
+     this.height = 40;
+     this.width = 40;
+     this.positionX = 50; 
+     this.positionY = 40; 
+     this.createDomElement(); 
+     this.fall(); 
+ }
+
+
+    }
+
+}
+// Initialize basket and egg objects
+const basket = new Basket();
+const eggfall = new Egg(); 
