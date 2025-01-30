@@ -106,3 +106,26 @@ button:hover {
     background-repeat: no-repeat;
     transition: all 0.1s linear;
 }
+
+    #point {
+   
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+        top: 40px;
+        left: 10px;
+        color: red;
+    }
+
+
+    #time {
+   
+        position: fixed;
+        font-size: 24px;
+        font-weight: bold;
+        top: 60px;
+        right: 20px;
+        color: red;
+    }
+
+

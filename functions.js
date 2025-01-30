@@ -67,7 +67,6 @@ class Basket {
     Basketmovement() {
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
-
                 case "ArrowRight":
                     if (this.positionX < 80) this.positionX++; // Add boundary for right movement
                     break;
@@ -107,7 +106,7 @@ class Egg {
         this.eggElm.style.backgroundRepeat = "no-repeat";
         this.eggElm.style.position = "absolute";
         this.eggElm.style.overflow = "hidden";
-
+        
         // Append the egg element to the 'image' div
         const parentElm = document.getElementById('image');
         parentElm.appendChild(this.eggElm);
@@ -120,12 +119,50 @@ class Egg {
     }
 
     fall() {
-        setInterval(() => {
+        const interval = setInterval(() => {
             if (this.positionY > 0) {
                 this.positionY--;
                 this.updateUI();
+                this.checkCollision();
+            }
+
+            // Check if the egg has reached the bottom and remove it
+            if (this.positionY === 0) {
+                this.remove();
+                clearInterval(interval); // Stop the egg from falling after removal
             }
         }, 100);
+    }
+
+    remove() {
+        const bottomValue = parseFloat(this.eggElm.style.bottom);
+        if (bottomValue === 0) {
+            this.eggElm.remove(); // Remove the egg element when it reaches the bottom
+        }
+    }
+
+    checkCollision() {
+        // Basket positions (dimensions)
+        const basketLeft = basket.positionX;
+        const basketRight = basket.positionX + basket.width;
+        const basketBottom = basket.positionY;
+        const basketTop = basket.positionY + basket.height;
+        
+        // Egg positions
+        const eggLeft = this.positionX;
+        const eggRight = this.positionX + this.width;
+        const eggBottom = this.positionY;
+        const eggTop = this.positionY + this.height;
+
+        if (
+            eggRight > basketLeft &&
+            eggLeft < basketRight &&
+            eggTop > basketBottom &&
+            eggBottom < basketTop
+        ) {
+            console.log("Caught the egg!");
+            this.eggElm.remove();
+        }
     }
 }
 
@@ -165,8 +202,42 @@ class RedEgg {
             if (this.positionY > 0) {
                 this.positionY--;
                 this.updateUI();
+                this.checkCollision();
+            }
+
+            // Check if the red egg has reached the bottom and remove it
+            if (this.positionY === 0) {
+                this.remove();
             }
         }, 300);
+    }
+
+    remove() {
+        this.redeggElm.remove(); // Remove the red egg when it reaches the bottom
+    }
+
+    checkCollision() {
+        // Basket positions (dimensions)
+        const basketLeft = basket.positionX;
+        const basketRight = basket.positionX + basket.width;
+        const basketBottom = basket.positionY;
+        const basketTop = basket.positionY + basket.height;
+
+        // Red egg positions
+        const redeggLeft = this.positionX;
+        const redeggRight = this.positionX + this.width;
+        const redeggBottom = this.positionY;
+        const redeggTop = this.positionY + this.height;
+
+        if (
+            redeggRight > basketLeft &&
+            redeggLeft < basketRight &&
+            redeggTop > basketBottom &&
+            redeggBottom < basketTop
+        ) {
+            console.log("Caught the red egg!");
+            this.redeggElm.remove();
+        }
     }
 }
 
@@ -206,25 +277,57 @@ class Candies {
             if (this.positionY > 0) {
                 this.positionY--;
                 this.updateUI();
-            }
-            if (this.positionX === 0) {
-                
+                this.checkCollision();
             }
 
+            // Check if the candy has reached the bottom and remove it
+            if (this.positionY === 0) {
+                this.remove();
+            }
         }, 150);
     }
-}
-const egg=new Egg();
-const Red=new RedEgg();
-const candie=new Candies();
 
-const eggsArr = [];  
-const redEggsArr = [];  
+    remove() {
+        this.CandiesElm.remove(); // Remove the candy when it reaches the bottom
+    }
+
+    checkCollision() {
+        // Basket positions (dimensions)
+        const basketLeft = basket.positionX;
+        const basketRight = basket.positionX + basket.width;
+        const basketBottom = basket.positionY;
+        const basketTop = basket.positionY + basket.height;
+
+        // Candy positions
+        const candieLeft = this.positionX;
+        const candieRight = this.positionX + this.width;
+        const candieBottom = this.positionY;
+        const candieTop = this.positionY + this.height;
+
+        if (
+            candieRight > basketLeft &&
+            candieLeft < basketRight &&
+            candieTop > basketBottom &&
+            candieBottom < basketTop
+        ) {
+            console.log("Caught the candy!");
+            this.CandiesElm.remove();
+        }
+    }
+}
+
+// Initialize basket and game objects
+const basket = new Basket();
+const egg = new Egg();
+const Red = new RedEgg();
+const candie = new Candies();
+const eggsArr = [];
+const redEggsArr = [];
 const candiesArr = [];
 
-class createmultiple {
+class CreateMultiple {
     constructor() {
-        this.create(); 
+        this.create();
     }
 
     create() {
@@ -249,10 +352,9 @@ class createmultiple {
             }
 
         }, 6000);  
-        
     }
 }
 
-// Initialize basket and egg objects
-const basket = new Basket();
-const create = new createmultiple(); 
+
+const loop = new CreateMultiple();
+ 
