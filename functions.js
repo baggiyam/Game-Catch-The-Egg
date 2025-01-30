@@ -28,7 +28,6 @@ function applyBannerClass() {
 
 
 
-
 // INSERTING THE BASKET
 class Basket {
     constructor() {
