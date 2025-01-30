@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
- <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Begin</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Begin</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
+    <!-- Container for the game content -->
     <div id="image"></div>
-    <div>
-        <div id="point">
-            <h4> Score:</h4>
-        </div>
-        <div id="time">Time: </div>
+    
+    <!-- Score and timer displayed in top corners -->
+    <div id="score-container" >
+        <h4 id="score-text">Score: 0</h4>
+    </div>
+    
+    <div id="timer-container">
+        <h4 id="time-text">Time: 2:00</h4>
     </div>
 
-    </div>
+
     <script src="functions.js"> </script>
-      
-        
-   
-
 </body>
 </html>

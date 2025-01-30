@@ -117,15 +117,19 @@ button:hover {
         color: red;
     }
 
+#score-container{
+    position: fixed;
+    top: 10px; 
+    left: 10px; 
+    font-size: 20px;
 
-    #time {
+}
    
-        position: fixed;
-        font-size: 24px;
-        font-weight: bold;
-        top: 60px;
-        right: 20px;
-        color: red;
-    }
+#timer-container{
+    position: fixed; 
+    top: 10px; 
+    right: 10px; 
+    font-size: 20px;
 
+}
 
