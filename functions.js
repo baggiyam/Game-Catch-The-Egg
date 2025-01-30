@@ -4,7 +4,6 @@ function applyBannerClass() {
     let counter = 1;
 
     const id = setInterval(function () {
-        console.log(`hello ${counter}`);
         counter++;
 
         if (counter > 0 && counter < 15) {
@@ -27,7 +26,8 @@ function applyBannerClass() {
     }, 1000);
 }
 
-window.onload = applyBannerClass;
+
+
 
 // INSERTING THE BASKET
 class Basket {
@@ -65,8 +65,8 @@ class Basket {
     }
 
     Basketmovement() {
-        let containerWidth = 800;  
-        let containerHeight = 600;  
+        let containerWidth = 1450;  
+        let containerHeight = 800;  
         let basketWidth = 150;  
         let basketHeight = 150;
         document.addEventListener("keydown", (event) => {
@@ -97,12 +97,14 @@ function updateScoreDisplay() {
     const scoreElement = document.getElementById("score-text");
     scoreElement.textContent = "Score: " + score;  
 }
+let Time=0
 class Egg {
-    constructor() {
+    constructor(index) {
         this.height = 100;
         this.width = 100;
         this.positionX = Math.floor(Math.random() * 700);
         this.positionY = 900;
+        this.fallInterval = null
         this.createDomElement();
         this.fall();
        
@@ -131,7 +133,7 @@ class Egg {
     }
 
     fall() {
-        const interval = setInterval(() => {
+        this.fallInterval = setInterval(() => {
             if (this.positionY > 0) {
                 this.positionY -= 10;
                 this.updateUI();
@@ -141,7 +143,7 @@ class Egg {
             // Check if the egg has reached the bottom and remove it
             if (this.positionY === 0) {
                 this.remove();
-                clearInterval(interval); // Stop the egg from falling after removal
+                clearInterval(this.fallInterval); // Stop the egg from falling after removal
             }
         }, 100);
     }
@@ -150,6 +152,7 @@ class Egg {
         const bottomValue = parseFloat(this.eggElm.style.bottom);
         if (bottomValue === 0) {
             this.eggElm.remove(); // Remove the egg element when it reaches the bottom
+            clearInterval(this.fallInterval)
         }
     }
 
@@ -174,6 +177,9 @@ class Egg {
         ) {
             score++;  
             this.eggElm.remove();
+            this.positionY = 600
+            clearInterval(this.fallInterval)
+
             updateScoreDisplay();
         }
       
@@ -184,11 +190,12 @@ class Egg {
 
 // RedEgg class (similar to Egg class)
 class RedEgg {
-    constructor() {
+    constructor(index) {
         this.height = 100;
         this.width = 100;
         this.positionX = Math.floor(Math.random() * 700);
         this.positionY = 900;
+        this.fallInterval = null
         this.createDomElement();
         this.fall();
         this.updateUI();
@@ -215,7 +222,7 @@ class RedEgg {
     }
 
     fall() {
-        setInterval(() => {
+        this.fallInterval = setInterval(() => {
             if (this.positionY > 0) {
                 this.positionY -= 50;
                 this.updateUI();
@@ -225,6 +232,7 @@ class RedEgg {
             // Check if the red egg has reached the bottom and remove it
             if (this.positionY === 0) {
                 this.remove();
+                clearInterval(this.fallInterval)
             }
         }, 300);
     }
@@ -255,6 +263,10 @@ class RedEgg {
            
             score--;  // Decrease score on catching the red egg
             this.redeggElm.remove();
+            this.positionY = 500
+            clearInterval(this.fallInterval)
+
+            
             updateScoreDisplay();
         }
     }
@@ -262,11 +274,12 @@ class RedEgg {
 
 // Candies class (similar to Egg class)
 class Candies {
-    constructor() {
+    constructor(index) {
         this.height = 100;
         this.width = 100;
         this.positionX = Math.floor(Math.random() * 700);
         this.positionY = 900;
+        this.fallInterval = null
         this.createDomElement();
         this.fall();
         this.updateUI();
@@ -293,7 +306,7 @@ class Candies {
     }
 
     fall() {
-        setInterval(() => {
+       this.fallInterval =  setInterval(() => {
             if (this.positionY > 0) {
                 this.positionY-=20;
                 this.updateUI();
@@ -303,6 +316,7 @@ class Candies {
             // Check if the candy has reached the bottom and remove it
             if (this.positionY === 0) {
                 this.remove();
+                clearInterval(this.fallInterval)
             }
         }, 150);
     }
@@ -333,6 +347,8 @@ class Candies {
             
             score += 2; 
             this.CandiesElm.remove();
+            this.positionY = 500
+            clearInterval(this.fallInterval)
             updateScoreDisplay();
         }
     }
@@ -360,15 +376,16 @@ class CreateMultiple {
             let candiesCount = Math.floor(Math.random()*3) + 1;  
 
             for (let i = 0; i < eggCount; i++) {
-                eggsArr.push(new Egg());
+                
+                new Egg()
             }
 
             for (let i = 0; i < redEggCount; i++) {
-                redEggsArr.push(new RedEgg());
+                new RedEgg()
             }
 
             for (let i = 0; i < candiesCount; i++) {
-                candiesArr.push(new Candies());
+           new Candies()
             }
 
         }, 6000);
@@ -376,6 +393,53 @@ class CreateMultiple {
 }
 
 //implementing Timer 
-
+setInterval(()=> {
+    console.log(eggsArr)
+    console.log(redEggsArr)
+    console.log(candiesArr)
+}, 500)
 
 new CreateMultiple();
+
+//Timer
+ let timerInterval;
+ const timerElement = document.getElementById('time-text');
+ const gameOverPopup = document.getElementById('gameOverPopup');
+ const continueButton = document.getElementById('continueButton');
+ const goBackButton = document.getElementById('goBackButton');
+ let remainingTime=60;
+ function startTimer() {
+    timerInterval = setInterval(function () {
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = remainingTime % 60;
+        const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timerElement.textContent = formattedTime;
+        remainingTime--;
+
+        if (remainingTime < 0) {
+            clearInterval(timerInterval);
+            showGameOverPopup();
+        }
+    }, 1000);
+}
+function showGameOverPopup() {
+    gameOverPopup.style.display = 'block';  // Display the popup
+}
+
+continueButton.addEventListener('click', () => {
+    gameOverPopup.style.display = 'none';
+    resetGame(); 
+    startTimer(); 
+});
+goBackButton.addEventListener('click', () => {
+    // Logic to go back to the previous page or home page
+    window.location.href = 'index.html';  // Change this to your actual "Go Back" action
+});
+window.onload = function() {
+    applyBannerClass();  // Apply the banner class
+    startTimer();        // Start the timer
+};
+
+
+
+
