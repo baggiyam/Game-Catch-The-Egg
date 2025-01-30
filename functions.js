@@ -32,8 +32,8 @@ window.onload = applyBannerClass;
 // INSERTING THE BASKET
 class Basket {
     constructor() {
-        this.width = 20;
-        this.height = 20;
+        this.width = 150;
+        this.height = 150;
         this.positionX = 0;
         this.positionY = 0;
 
@@ -46,13 +46,13 @@ class Basket {
         this.basketElm = document.createElement('div');
         this.basketElm.className = "Basket";
         this.basketElm.style.backgroundImage = "url('Images/Nest.jpeg')";
-        this.basketElm.style.width = this.width + "vw";
-        this.basketElm.style.height = this.height + "vh";
-        this.basketElm.style.left = this.positionX + "vw";
-        this.basketElm.style.bottom = this.positionY + "vh";
-        this.basketElm.style.backgroundSize = "cover";
+        this.basketElm.style.width = this.width + "px";
+        this.basketElm.style.height = this.height + "px";
+        this.basketElm.style.left = this.positionX + "px";
+        this.basketElm.style.bottom = this.positionY + "px";
+        this.basketElm.style.backgroundSize = "contain";
         this.basketElm.style.backgroundRepeat = "no-repeat";
-        this.basketElm.style.position = "absolute"; // Set position to absolute
+        this.basketElm.style.position = "absolute"; 
 
         // Append the basket to the 'image' container
         const parentElm = document.getElementById('image');
@@ -60,24 +60,30 @@ class Basket {
     }
 
     updateUI() {
-        this.basketElm.style.left = this.positionX + "vw";
-        this.basketElm.style.bottom = this.positionY + "vh";
+        this.basketElm.style.left = this.positionX + "px";
+        this.basketElm.style.bottom = this.positionY + "px";
     }
 
     Basketmovement() {
+        let containerWidth = 800;  
+        let containerHeight = 600;  
+        let basketWidth = 150;  
+        let basketHeight = 150;
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
                 case "ArrowRight":
-                    if (this.positionX < 80) this.positionX++; // Add boundary for right movement
+                    if (this.positionX < containerWidth - basketWidth) 
+                        this.positionX+=10; 
                     break;
                 case "ArrowLeft":
-                    if (this.positionX > 0) this.positionX--; // Add boundary for left movement
+                    if (this.positionX > 0) this.positionX-=10; // Add boundary for left movement
                     break;
                 case "ArrowUp":
-                    if (this.positionY < 80) this.positionY++; // Add boundary for up movement
+                    if (this.positionY < containerHeight - basketHeight)
+                        this.positionY+=10  // Add boundary for up movement
                     break;
                 case "ArrowDown":
-                    if (this.positionY > 0) this.positionY--; // Add boundary for down movement
+                    if (this.positionY > 0) this.positionY-=10; // Add boundary for down movement
                     break;
             }
             this.updateUI(); // Update basket position after key press
@@ -86,14 +92,20 @@ class Basket {
 }
 
 // Egg class for falling egg behavior
+let score=0;
+function updateScoreDisplay() {
+    const scoreElement = document.getElementById("score-text");
+    scoreElement.textContent = "Score: " + score;  
+}
 class Egg {
     constructor() {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 80);
-        this.positionY = 80;
+        this.positionX = Math.floor(Math.random() * 700);
+        this.positionY = 900;
         this.createDomElement();
         this.fall();
+       
     }
 
     createDomElement() {
@@ -114,14 +126,14 @@ class Egg {
     }
 
     updateUI() {
-        this.eggElm.style.left = this.positionX + "vw";
-        this.eggElm.style.bottom = this.positionY + "vh";
+        this.eggElm.style.left = this.positionX + "px";
+        this.eggElm.style.bottom = this.positionY + "px";
     }
 
     fall() {
         const interval = setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY--;
+                this.positionY -= 10;
                 this.updateUI();
                 this.checkCollision();
             }
@@ -160,18 +172,23 @@ class Egg {
             eggTop > basketBottom &&
             eggBottom < basketTop
         ) {
-            console.log("Caught the egg!");
+            score++;  
             this.eggElm.remove();
+            updateScoreDisplay();
         }
+      
     }
+    
+    
 }
 
+// RedEgg class (similar to Egg class)
 class RedEgg {
     constructor() {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 80);
-        this.positionY = 80;
+        this.positionX = Math.floor(Math.random() * 700);
+        this.positionY = 900;
         this.createDomElement();
         this.fall();
         this.updateUI();
@@ -193,14 +210,14 @@ class RedEgg {
     }
 
     updateUI() {
-        this.redeggElm.style.left = this.positionX + "vw";
-        this.redeggElm.style.bottom = this.positionY + "vh";
+        this.redeggElm.style.left = this.positionX + "px";
+        this.redeggElm.style.bottom = this.positionY + "px";
     }
 
     fall() {
         setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY--;
+                this.positionY -= 50;
                 this.updateUI();
                 this.checkCollision();
             }
@@ -235,18 +252,21 @@ class RedEgg {
             redeggTop > basketBottom &&
             redeggBottom < basketTop
         ) {
-            console.log("Caught the red egg!");
+           
+            score--;  // Decrease score on catching the red egg
             this.redeggElm.remove();
+            updateScoreDisplay();
         }
     }
 }
 
+// Candies class (similar to Egg class)
 class Candies {
     constructor() {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 80);
-        this.positionY = 80;
+        this.positionX = Math.floor(Math.random() * 700);
+        this.positionY = 900;
         this.createDomElement();
         this.fall();
         this.updateUI();
@@ -268,14 +288,14 @@ class Candies {
     }
 
     updateUI() {
-        this.CandiesElm.style.left = this.positionX + "vw";
-        this.CandiesElm.style.bottom = this.positionY + "vh";
+        this.CandiesElm.style.left = this.positionX + "px";
+        this.CandiesElm.style.bottom = this.positionY + "px";
     }
 
     fall() {
         setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY--;
+                this.positionY-=20;
                 this.updateUI();
                 this.checkCollision();
             }
@@ -310,8 +330,10 @@ class Candies {
             candieTop > basketBottom &&
             candieBottom < basketTop
         ) {
-            console.log("Caught the candy!");
+            
+            score += 2; 
             this.CandiesElm.remove();
+            updateScoreDisplay();
         }
     }
 }
@@ -333,28 +355,27 @@ class CreateMultiple {
     create() {
         const creationInterval = setInterval(() => {
             
-            let eggCount = Math.floor(Math.random()) + 1;  
-            let redEggCount = Math.floor(Math.random()) + 1;  
-            let candiesCount = Math.floor(Math.random()) + 1;  
+            let eggCount = Math.floor(Math.random()*2) + 1;  
+           let redEggCount = Math.floor(Math.random()) + 1;  
+            let candiesCount = Math.floor(Math.random()*3) + 1;  
 
             for (let i = 0; i < eggCount; i++) {
-                const eggfall = new Egg();
-                eggsArr.push(eggfall);  
+                eggsArr.push(new Egg());
             }
 
             for (let i = 0; i < redEggCount; i++) {
-                const redegg = new RedEgg();
-                redEggsArr.push(redegg);  
-            }
-            for (let i = 0; i < candiesCount; i++) {
-                const candy = new Candies();
-                candiesArr.push(candy);  
+                redEggsArr.push(new RedEgg());
             }
 
-        }, 6000);  
+            for (let i = 0; i < candiesCount; i++) {
+                candiesArr.push(new Candies());
+            }
+
+        }, 6000);
     }
 }
 
+//implementing Timer 
 
-const loop = new CreateMultiple();
- 
+
+new CreateMultiple();

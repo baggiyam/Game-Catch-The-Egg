@@ -8,25 +8,28 @@ h1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh;
+    min-height: 600px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-attachment: fixed
 }
+
 
 .Banner2 {
     background-image: url('Images/Background-2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh;
+    min-height: 600px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-attachment: fixed
 }
 
 .Banner3 {
@@ -34,12 +37,13 @@ h1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh;
+    min-height: 600px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-attachment: fixed
 }
 
 .Banner4 {
@@ -47,12 +51,13 @@ h1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh;
+    min-height: 600px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-attachment: fixed
 }
 
 .Align {
@@ -93,8 +98,8 @@ button:hover {
 }
 
 #border {
-    width: 90vw;
-    height: 90vh;
+    width: 800px;
+    height: 600;
     position: relative;
 }
 
@@ -116,6 +121,16 @@ button:hover {
         left: 10px;
         color: red;
     }
+    .Basket {
+      
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        min-height: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    }
+    
 
 #score-container{
     position: fixed;
