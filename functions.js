@@ -333,9 +333,9 @@ class CreateMultiple {
     create() {
         const creationInterval = setInterval(() => {
             
-            let eggCount = Math.floor(Math.random() * 5) + 1;  
+            let eggCount = Math.floor(Math.random()) + 1;  
             let redEggCount = Math.floor(Math.random()) + 1;  
-            let candiesCount = Math.floor(Math.random() * 3) + 1;  
+            let candiesCount = Math.floor(Math.random()) + 1;  
 
             for (let i = 0; i < eggCount; i++) {
                 const eggfall = new Egg();
