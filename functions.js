@@ -76,14 +76,14 @@ class Basket {
             switch (event.code) {
                 case "ArrowRight":
                     if (this.positionX < containerWidth - basketWidth)
-                        this.positionX += 10;
+                        this.positionX += 15;
                     break;
                 case "ArrowLeft":
                     if (this.positionX > 0) this.positionX -= 10; // Add boundary for left movement
                     break;
                 case "ArrowUp":
                     if (this.positionY < containerHeight - basketHeight)
-                        this.positionY += 10  // Add boundary for up movement
+                        this.positionY += 15  // Add boundary for up movement
                     break;
                 case "ArrowDown":
                     if (this.positionY > 0) this.positionY -= 10; // Add boundary for down movement
@@ -185,7 +185,7 @@ class RedEgg {
     constructor(index) {
         this.height = 80;
         this.width = 80;
-        this.positionX = Math.floor(Math.random() * 1450);
+        this.positionX = Math.floor(Math.random() * 950);
         this.positionY = 900;
         this.fallInterval = null
         this.createDomElement();
@@ -269,7 +269,7 @@ class Candies {
     constructor(index) {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 1450);
+        this.positionX = Math.floor(Math.random() * 950);
         this.positionY = 900;
         this.fallInterval = null
         this.createDomElement();
