@@ -1,6 +1,8 @@
 // Creating the CHANGABLE BACKGROUND
 function applyBannerClass() {
+     
     const bodyElement = document.body;
+    
     let counter = 1;
 
     const id = setInterval(function () {
@@ -51,7 +53,9 @@ class Basket {
         this.basketElm.style.bottom = this.positionY + "px";
         this.basketElm.style.backgroundSize = "contain";
         this.basketElm.style.backgroundRepeat = "no-repeat";
-        this.basketElm.style.position = "absolute"; 
+        this.basketElm.style.position = "absolute";
+       
+        
 
         // Append the basket to the 'image' container
         const parentElm = document.getElementById('image');
@@ -64,51 +68,48 @@ class Basket {
     }
 
     Basketmovement() {
-        let containerWidth = 1450;  
-        let containerHeight = 800;  
-        let basketWidth = 150;  
+        let containerWidth = 1300;
+        let containerHeight = 700;
+        let basketWidth = 150;
         let basketHeight = 150;
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
                 case "ArrowRight":
-                    if (this.positionX < containerWidth - basketWidth) 
-                        this.positionX+=10; 
+                    if (this.positionX < containerWidth - basketWidth)
+                        this.positionX += 10;
                     break;
                 case "ArrowLeft":
-                    if (this.positionX > 0) this.positionX-=10; // Add boundary for left movement
+                    if (this.positionX > 0) this.positionX -= 10; // Add boundary for left movement
                     break;
                 case "ArrowUp":
                     if (this.positionY < containerHeight - basketHeight)
-                        this.positionY+=10  // Add boundary for up movement
+                        this.positionY += 10  // Add boundary for up movement
                     break;
                 case "ArrowDown":
-                    if (this.positionY > 0) this.positionY-=10; // Add boundary for down movement
+                    if (this.positionY > 0) this.positionY -= 10; // Add boundary for down movement
                     break;
             }
             this.updateUI(); // Update basket position after key press
         });
     }
 }
-
 // Egg class for falling egg behavior
-let score=0;
+let score = 0;
 function updateScoreDisplay() {
     const scoreElement = document.getElementById("score-text");
-    scoreElement.textContent = "Score: " + score;  
+    scoreElement.textContent = "Score: " + score;
 }
-let Time=0
+let Time = 0
 class Egg {
     constructor(index) {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 700);
+        this.positionX = Math.floor(Math.random() * 950);
         this.positionY = 900;
         this.fallInterval = null
         this.createDomElement();
         this.fall();
-       
     }
-
     createDomElement() {
         this.eggElm = document.createElement('div');
         this.eggElm.className = "eggclass";
@@ -119,18 +120,15 @@ class Egg {
         this.eggElm.style.backgroundRepeat = "no-repeat";
         this.eggElm.style.position = "absolute";
         this.eggElm.style.overflow = "hidden";
-        
         // Append the egg element to the 'image' div
         const parentElm = document.getElementById('image');
         parentElm.appendChild(this.eggElm);
         this.updateUI(); // Update the egg position
     }
-
     updateUI() {
         this.eggElm.style.left = this.positionX + "px";
         this.eggElm.style.bottom = this.positionY + "px";
     }
-
     fall() {
         this.fallInterval = setInterval(() => {
             if (this.positionY > 0) {
@@ -146,7 +144,6 @@ class Egg {
             }
         }, 100);
     }
-
     remove() {
         const bottomValue = parseFloat(this.eggElm.style.bottom);
         if (bottomValue === 0) {
@@ -154,14 +151,13 @@ class Egg {
             clearInterval(this.fallInterval)
         }
     }
-
     checkCollision() {
         // Basket positions (dimensions)
         const basketLeft = basket.positionX;
         const basketRight = basket.positionX + basket.width;
         const basketBottom = basket.positionY;
         const basketTop = basket.positionY + basket.height;
-        
+
         // Egg positions
         const eggLeft = this.positionX;
         const eggRight = this.positionX + this.width;
@@ -174,25 +170,22 @@ class Egg {
             eggTop > basketBottom &&
             eggBottom < basketTop
         ) {
-            score++;  
+            score++;
             this.eggElm.remove();
             this.positionY = 600
             clearInterval(this.fallInterval)
 
             updateScoreDisplay();
         }
-      
     }
-    
-    
 }
 
 // RedEgg class (similar to Egg class)
 class RedEgg {
     constructor(index) {
-        this.height = 100;
-        this.width = 100;
-        this.positionX = Math.floor(Math.random() * 700);
+        this.height = 80;
+        this.width = 80;
+        this.positionX = Math.floor(Math.random() * 1450);
         this.positionY = 900;
         this.fallInterval = null
         this.createDomElement();
@@ -223,7 +216,7 @@ class RedEgg {
     fall() {
         this.fallInterval = setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY -= 50;
+                this.positionY -=20;
                 this.updateUI();
                 this.checkCollision();
             }
@@ -259,13 +252,13 @@ class RedEgg {
             redeggTop > basketBottom &&
             redeggBottom < basketTop
         ) {
-           
+
             score--;  // Decrease score on catching the red egg
             this.redeggElm.remove();
             this.positionY = 500
             clearInterval(this.fallInterval)
 
-            
+
             updateScoreDisplay();
         }
     }
@@ -276,7 +269,7 @@ class Candies {
     constructor(index) {
         this.height = 100;
         this.width = 100;
-        this.positionX = Math.floor(Math.random() * 700);
+        this.positionX = Math.floor(Math.random() * 1450);
         this.positionY = 900;
         this.fallInterval = null
         this.createDomElement();
@@ -305,9 +298,9 @@ class Candies {
     }
 
     fall() {
-       this.fallInterval =  setInterval(() => {
+        this.fallInterval = setInterval(() => {
             if (this.positionY > 0) {
-                this.positionY-=20;
+                this.positionY -= 20;
                 this.updateUI();
                 this.checkCollision();
             }
@@ -343,8 +336,8 @@ class Candies {
             candieTop > basketBottom &&
             candieBottom < basketTop
         ) {
-            
-            score += 2; 
+
+            score += 2;
             this.CandiesElm.remove();
             this.positionY = 500
             clearInterval(this.fallInterval)
@@ -358,9 +351,7 @@ const basket = new Basket();
 const egg = new Egg();
 const Red = new RedEgg();
 const candie = new Candies();
-const eggsArr = [];
-const redEggsArr = [];
-const candiesArr = [];
+
 
 class CreateMultiple {
     constructor() {
@@ -369,13 +360,13 @@ class CreateMultiple {
 
     create() {
         const creationInterval = setInterval(() => {
-            
-            let eggCount = Math.floor(Math.random()*2) + 1;  
-           let redEggCount = Math.floor(Math.random()) + 1;  
-            let candiesCount = Math.floor(Math.random()*3) + 1;  
+
+            let eggCount = Math.floor(Math.random() * 2) + 1;
+            let redEggCount = Math.floor(Math.random()) + 1;
+            let candiesCount = Math.floor(Math.random() * 3) + 1;
 
             for (let i = 0; i < eggCount; i++) {
-                
+
                 new Egg()
             }
 
@@ -384,7 +375,7 @@ class CreateMultiple {
             }
 
             for (let i = 0; i < candiesCount; i++) {
-           new Candies()
+                new Candies()
             }
 
         }, 6000);
@@ -392,7 +383,7 @@ class CreateMultiple {
 }
 
 //implementing Timer 
-setInterval(()=> {
+setInterval(() => {
     console.log(eggsArr)
     console.log(redEggsArr)
     console.log(candiesArr)
@@ -401,13 +392,13 @@ setInterval(()=> {
 new CreateMultiple();
 
 //Timer
- let timerInterval;
- const timerElement = document.getElementById('time-text');
- const gameOverPopup = document.getElementById('gameOverPopup');
- const continueButton = document.getElementById('continueButton');
- const goBackButton = document.getElementById('goBackButton');
- let remainingTime=60;
- function startTimer() {
+let timerInterval;
+const timerElement = document.getElementById('time-text');
+const gameOverPopup = document.getElementById('gameOverPopup');
+const continueButton = document.getElementById('continueButton');
+const goBackButton = document.getElementById('goBackButton');
+let remainingTime = 60;
+function startTimer() {
     timerInterval = setInterval(function () {
         const minutes = Math.floor(remainingTime / 60);
         const seconds = remainingTime % 60;
@@ -422,21 +413,30 @@ new CreateMultiple();
     }, 1000);
 }
 function showGameOverPopup() {
-    gameOverPopup.style.display = 'block';  // Display the popup
+    gameOverPopup.style.display = 'block';  
 }
 
 continueButton.addEventListener('click', () => {
     gameOverPopup.style.display = 'none';
-    resetGame(); 
-    startTimer(); 
+    resetGame();
+    startTimer();
 });
+function resetGame() {
+    clearInterval(timerInterval); 
+    remainingTime = 60;
+    score = 0; 
+    gameOverPopup.style.display = 'none'; 
+    startTimer();
+}
 goBackButton.addEventListener('click', () => {
-    // Logic to go back to the previous page or home page
-    window.location.href = 'index.html';  // Change this to your actual "Go Back" action
+    
+    window.location.href = 'index.html';  
 });
-window.onload = function() {
+
+window.onload = function () {
     applyBannerClass();  // Apply the banner class
     startTimer();        // Start the timer
+
 };
 
 

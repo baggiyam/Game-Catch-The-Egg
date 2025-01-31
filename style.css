@@ -4,7 +4,7 @@ h1 {
 }
 
 .Banner {
-    background-image: url('Images/Homescreen.jpg');
+    background-image: url('Images/Homepage_new.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -15,28 +15,30 @@ h1 {
     justify-content: center;
     align-items: center;
     background-attachment: fixed
+ 
 }
 
 
 .Banner2 {
-    background-image: url('Images/Background-2.jpg');
+    background-image: url('Images/Background1.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: fixed;
     min-height: 600px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-attachment: fixed
+   
+  
 }
 
 .Banner3 {
-    background-image: url('Images/Background1.jpg');
+    background-image: url('Images/Background-2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: fixed;
     min-height: 600px;
     text-align: center;
     display: flex;
@@ -47,10 +49,10 @@ h1 {
 }
 
 .Banner4 {
-    background-image: url('Images/Background3.jpeg');
+    background-image: url('Images/Background3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: fixed;
     min-height: 600px;
     text-align: center;
     display: flex;
@@ -110,6 +112,7 @@ button:hover {
 
 
 .eggclass, .RedEgg, .candies {
+    
     position: absolute;
     width: 8vw;
     height: 8vw;
@@ -131,7 +134,7 @@ button:hover {
       
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain;
+        background-size: fixed;
         min-height: 50px;
     background-repeat: no-repeat;
     background-position: center;
